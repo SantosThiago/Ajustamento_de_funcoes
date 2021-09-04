@@ -1,0 +1,1 @@
+# Ajustamento_de_funcoes
