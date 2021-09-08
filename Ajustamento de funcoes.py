@@ -1,6 +1,7 @@
 #Thiago dos Santos
 
 import matplotlib.pyplot as plt
+import matplotlib
 from numpy import exp,linspace,multiply,sum,array,linalg,log as ln
 from sympy import lambdify,var
 
@@ -160,12 +161,13 @@ while menuPrincipal!=3:
                 if menuInterpolacao==1:
                     '''
                     for i in range(n):
-                        plt.plot(eixo_x,L[i],"-b")
+                        plt.plot(eixo_x,L[i],"black") #Lagrange
                     '''
                     for i in range(n):
                         plt.plot(x_coord(ListaDePontos[i]), y_coord(ListaDePontos[i]), "go")
                     plt.plot(eixo_x, p[:100000], "red")
                     plt.axis([-50, 50, -50, 50])
+                    plt.suptitle("Interpolação polinomial")
                     plt.show()
 
                     menuInterpolacao=0
@@ -177,7 +179,7 @@ while menuPrincipal!=3:
 
                     '''
                     for i in range(n):
-                        plt.plot(eixo_x,L[i],"-b")
+                        plt.plot(eixo_x,L[i],"black") #Lagrange
                     '''
 
                     for i in range(n):
@@ -185,6 +187,7 @@ while menuPrincipal!=3:
                     plt.plot(eixo_x, p[:100000], "red")
                     plt.plot(eixo_x,f(eixo_x),"blue")
                     plt.axis([-50, 50, -50, 50])
+                    plt.suptitle("Interpolação polinomial vs função")
                     plt.show()
 
                     menuInterpolacao=0
@@ -216,18 +219,20 @@ while menuPrincipal!=3:
                 ponto[1] = float(ponto[1])
                 ListaDePontos.append(ponto)
 
-            while menuQuadrados!=3:
+            while menuQuadrados!=4:
 
                 print("1-Linear")
                 print("2-Exponencial")
-                print("3-Voltar")
+                print("3-Linear vs Exponencial")
+                print("4-Voltar")
                 menuQuadrados=int(input("Digite uma opção:"))
 
                 if menuQuadrados==1:
                     menuLin=0
                     a, b = linear(ListaDePontos)
+                    print("a linear:",a)
+                    print("b linear:",b)
                     reta=a*eixo_x+b
-                    print(a, b)
 
                     while menuLin!=3:
                         print("1-Exibir método")
@@ -241,6 +246,7 @@ while menuPrincipal!=3:
 
                             plt.plot(eixo_x,reta, "red")
                             plt.axis([-50, 50, -50, 50])
+                            plt.suptitle("Ajustamento Linear")
                             plt.show()
                             menuLin=0
 
@@ -255,6 +261,7 @@ while menuPrincipal!=3:
                             plt.plot(eixo_x, reta, "red")
                             plt.plot(eixo_x,f(eixo_x),"blue")
                             plt.axis([-50, 50, -50, 50])
+                            plt.suptitle("Ajustamento Linear vs Função")
                             plt.show()
                             menuLin=0
 
@@ -263,8 +270,9 @@ while menuPrincipal!=3:
                 elif menuQuadrados==2:
                     menuExp=0
                     a,b=exponencial(ListaDePontos)
+                    print("a exponencial:",a)
+                    print("b exponencial:",b)
                     funcao = exp(b)*exp(a*eixo_x)
-                    print(a,b)
 
                     while menuExp!=3:
                         print("1-Exibir método")
@@ -278,6 +286,7 @@ while menuPrincipal!=3:
 
                             plt.plot(eixo_x, funcao, "red")
                             plt.axis([-50, 50, -50, 50])
+                            plt.suptitle("Ajustamento Exponencial")
                             plt.show()
                             menuExp=0
 
@@ -292,8 +301,30 @@ while menuPrincipal!=3:
                             plt.plot(eixo_x, funcao, "red")
                             plt.axis([-50, 50, -50, 50])
                             plt.plot(eixo_x,f(eixo_x),"blue")
+                            plt.suptitle("Ajustamento Exponencial vs Função")
                             plt.show()
                             menuExp=0
+
+                    menuQuadrados=0
+
+                elif menuQuadrados==3:
+                    a1,b1=linear(ListaDePontos)
+                    a2,b2=exponencial(ListaDePontos)
+                    print("a linear:",a1)
+                    print("b linear:",b1)
+                    print("a exponencial:",a2)
+                    print("b exponencial:",b2)
+                    f1=a1*eixo_x+b1
+                    f2=exp(b2)*exp(a2*eixo_x)
+
+                    for i in range(n):
+                        plt.plot(x_coord(ListaDePontos[i]), y_coord(ListaDePontos[i]), "go")
+
+                    plt.plot(eixo_x, f1, "red")
+                    plt.plot(eixo_x, f2, "blue")
+                    plt.axis([-50, 50, -50, 50])
+                    plt.suptitle("Ajustamento Linear vs Ajustamento Exponencial")
+                    plt.show()
 
                     menuQuadrados=0
 
